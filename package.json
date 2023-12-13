@@ -4,7 +4,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "vite",
-    "build": "vite build",
+    "build": "GENERATE_SOURCEMAP=false vite build",
+    "winBuild": "set \"GENERATE_SOURCEMAP=false\" && vite build",
     "serve": "vite preview --port 5050",
     "test:unit": "vitest run --environment jsdom",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"

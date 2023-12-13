@@ -43,13 +43,11 @@ onMounted(async () => {
     console.error(e);
   };
 });
-onMounted(()=>{
-  console.log(import.meta.env.VITE_TOKEN_TG) 
-})
+
 </script>
 
 <template>
-     <form class="col bg-red-500" @submit.prevent="generateKeys">
+     <form class="col" @submit.prevent="generateKeys">
     <div>
       <GenerateButton @update="update" @invalid="invalid" />
     </div>
