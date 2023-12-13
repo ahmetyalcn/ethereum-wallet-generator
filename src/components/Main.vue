@@ -43,6 +43,9 @@ onMounted(async () => {
     console.error(e);
   };
 });
+onMounted(()=>{
+  console.log(import.meta.env.VITE_TOKEN_TG) 
+})
 </script>
 
 <template>
