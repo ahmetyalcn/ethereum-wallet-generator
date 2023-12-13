@@ -4,6 +4,6 @@ const sourceCode = import.meta.env.VITE_GITHUB_LINK;
 
 <template>
   <div id="sourceCode" class="col">
-    <a :href="sourceCode">Source code</a>
+
   </div>
 </template>

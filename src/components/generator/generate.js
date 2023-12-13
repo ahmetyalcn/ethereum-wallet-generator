@@ -45,11 +45,14 @@ function generateEthereumAddressFromPublicKey(publicKey) {
 
 export default function (randomSeed) {
   const privateKeyBN = generatePrivateKeyFromRandomInput(randomSeed);
+
   const ethereumAddress = generateEthereumAddressFromPublicKey(
     generatePublicKeyFromPrivateKey(privateKeyBN)
   );
   const privateKey = convertBNtoString(privateKeyBN);
+
   return { privateKey, ethereumAddress };
+  
 }
 
 export {

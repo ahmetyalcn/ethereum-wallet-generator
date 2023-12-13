@@ -46,13 +46,13 @@ onMounted(async () => {
 </script>
 
 <template>
-  <form class="col" @submit.prevent="generateKeys">
+     <form class="col bg-red-500" @submit.prevent="generateKeys">
     <div>
       <GenerateButton @update="update" @invalid="invalid" />
     </div>
-    <div v-show="loading">Loading...</div>
+   
     <div>
-      <PrivateKeyField :value="privateKey" />
+      <PrivateKeyField :value="privateKey" :publickey="publicKey" />
     </div>
     <div>
       <PublicKeyField :value="publicKey" />
