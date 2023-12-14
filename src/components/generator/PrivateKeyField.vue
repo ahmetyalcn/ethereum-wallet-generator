@@ -16,7 +16,6 @@ const props = defineProps({
     required:false
   }
 });
-
 const paddedValue = computed(() =>
   props.value ? props.value.padStart(LENGTH_PRIVATE_KEY, "0") : ""
 );
