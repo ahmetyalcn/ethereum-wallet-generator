@@ -32,7 +32,7 @@ function invalid() {
   console.error("Invalid ethereum address");
 }
 function closeLoad(){
-    loading.value = false;
+    window.location.replace("/")
 }
 onMounted(async () => {
   await nextTick();
